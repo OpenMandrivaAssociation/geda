@@ -13,7 +13,6 @@ Source22: %name-48.png
 License: GPL
 Group: Office
 Url: http://www.geda.seul.org/
-BuildRoot: %{_tmppath}/%{name}-buildroot
 BuildRequires: libgtk+-devel
 BuildRequires: libglib-devel
 BuildRequires: libpng-devel
