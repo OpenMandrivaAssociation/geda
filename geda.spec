@@ -39,14 +39,14 @@ rm -rf $RPM_BUILD_ROOT
 %makeinstall_std
 
 mkdir -p %buildroot{%_menudir,%_liconsdir,%_iconsdir,%_miconsdir}
-cat <<EOF >$RPM_BUILD_ROOT%{_menudir}/%name
-?package(%name):\
-needs="x11"\
-section="More Applications/Sciences/Electricity"\
-title="gEDA"\
-longtitle="Geda project manager"\
-icon="%name.png"\
-command="%name"
+cat << EOF > %buildroot%{_datadir}/applications/mandriva-%name.desktop
+[Desktop Entry]
+Type=Application
+Categories=Science;Electronics;
+Name=gEDA
+Comment=Geda project manager
+Icon=%name
+Exec=%name
 EOF
 
 install -D -m644 %{SOURCE20} $RPM_BUILD_ROOT%{_miconsdir}/%name.png
@@ -70,7 +70,7 @@ rm -rf $RPM_BUILD_ROOT
 %_bindir/geda
 %_bindir/raw2gw
 %_bindir/graphman
-%_menudir/%name
+%{_datadir}/applications/mandriva-%name.desktop
 %_miconsdir/%name.png
 %_iconsdir/%name.png
 %_liconsdir/%name.png
