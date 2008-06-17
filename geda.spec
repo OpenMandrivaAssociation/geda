@@ -1,6 +1,6 @@
 %define name geda
 %define version 20060123
-%define release %mkrel 2
+%define release %mkrel 3
 
 Summary: A project manager
 Name: %{name}
@@ -39,7 +39,7 @@ running tools. It simplifies your job.
 rm -rf $RPM_BUILD_ROOT
 %makeinstall_std
 
-mkdir -p %buildroot{%_menudir,%_liconsdir,%_iconsdir,%_miconsdir}
+mkdir -p %buildroot{%{_datadir}/applications,%_liconsdir,%_iconsdir,%_miconsdir}
 cat << EOF > %buildroot%{_datadir}/applications/mandriva-%name.desktop
 [Desktop Entry]
 Type=Application
