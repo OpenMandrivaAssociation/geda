@@ -1,6 +1,6 @@
 %define name geda
 %define version 20060123
-%define release %mkrel 3
+%define release %mkrel 4
 
 Summary: A project manager
 Name: %{name}
