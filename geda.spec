@@ -1,7 +1,7 @@
 Summary: A project manager
 Name: geda
 Epoch: 1
-Version: 1.4.2
+Version: 1.4.3
 Release: %{mkrel 1}
 License: GPLv2
 Group: Office
