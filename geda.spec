@@ -4,7 +4,7 @@ Summary: GPL Electronic Design Automation Project
 Name: geda
 Epoch: 1
 Version: 1.6.0
-Release: %{mkrel 1}
+Release: %{mkrel 2}
 License: GPLv2
 Group: Office
 Url: http://www.gpleda.org/
@@ -42,6 +42,7 @@ simulation, and printed circuit board (PCB) layout.
 %package -n lib%{name}-data
 Summary: Static data from %name
 Group: Sciences/Other
+Conflicts: %{name}-symbols < 1:1.6.0-2
 
 %description -n lib%{name}-data
 This packages contains some help files and other
@@ -56,6 +57,7 @@ circuit design, simulation, prototyping, and production.
 %dir %{_datadir}/gEDA
 %{_datadir}/gEDA/prolog.ps
 %{_datadir}/gEDA/scheme/geda.scm
+%{_datadir}/gEDA/scheme/color-map.scm
 %{_datadir}/gEDA/system-gafrc
 %{_datadir}/gEDA/print-colormap-*
 %{_iconsdir}/hicolor/*/mimetypes/*
@@ -118,9 +120,7 @@ used by gschem, the gEDA project schematic editor.
 %defattr(-,root,root)
 %dir %{_datadir}/gEDA/sym
 %dir %{_datadir}/gEDA/sym/*/
-%dir %{_datadir}/gEDA/scheme
 %{_datadir}/gEDA/sym/*/*
-%{_datadir}/gEDA/scheme/*
 %{_datadir}/gEDA/gafrc.d
 %{_datadir}/doc/geda-gaf/nc.pdf
 
@@ -128,6 +128,7 @@ used by gschem, the gEDA project schematic editor.
 %package gattrib
 Summary: Electronics schematics editor
 Group: Sciences/Other
+Requires: %{name}-symbols = %epoch:%version-%release
 
 %description gattrib
 Gattrib is gEDA's attribute editor.  It reads a set of gschem .sch
@@ -152,6 +153,8 @@ only.)
 %package gschem
 Summary: Electronics schematics editor
 Group: Sciences/Other
+Requires: %{name}-symbols = %epoch:%version-%release
+Conflicts: %{name}-symbols < 1:1.6.0-2
 
 %description gschem
 Gschem is an electronics schematic editor. It is part of the gEDA project.
@@ -164,6 +167,16 @@ Gschem is an electronics schematic editor. It is part of the gEDA project.
 %{_datadir}/gEDA/bitmap/gschem*
 %{_datadir}/gEDA/system-gschemrc
 %{_datadir}/gEDA/gschem-*
+%{_datadir}/gEDA/scheme/auto-place-attribs.scm
+%{_datadir}/gEDA/scheme/auto-uref.scm
+%{_datadir}/gEDA/scheme/default-attrib-positions.scm 
+%{_datadir}/gEDA/scheme/generate_netlist.scm
+%{_datadir}/gEDA/scheme/gschem.scm
+%{_datadir}/gEDA/scheme/image.scm
+%{_datadir}/gEDA/scheme/list-keys.scm
+%{_datadir}/gEDA/scheme/pcb.scm
+%{_datadir}/gEDA/scheme/print.scm
+%{_datadir}/gEDA/scheme/print-NB-attribs.scm
 %{_datadir}/doc/geda-gaf/man/gschem.html
 %{_datadir}/applications/geda-gschem.desktop
 %{_iconsdir}/hicolor/*/apps/geda-gschem.*
@@ -172,6 +185,7 @@ Gschem is an electronics schematic editor. It is part of the gEDA project.
 %package gsymcheck
 Summary: Electronics schematics editor
 Group: Sciences/Other
+Requires: %{name}-symbols = %epoch:%version-%release
 
 %description gsymcheck
 Gsymcheck is a utility to check symbols for gschem. It is part
@@ -188,6 +202,7 @@ of the gEDA project.
 %package utils
 Summary: Netlister for the gEDA project
 Group: Sciences/Other
+Requires: %{name}-symbols = %epoch:%version-%release
 
 %description utils
 Several utilities for the gEDA project.
@@ -223,6 +238,8 @@ Several utilities for the gEDA project.
 %package gnetlist
 Summary: Netlister for the gEDA project
 Group: Sciences/Other
+Requires: %{name}-symbols = %epoch:%version-%release
+Conflicts: %{name}-symbols < 1:1.6.0-2
 
 %description gnetlist
 Gnetlist generates netlists from schematics drawn with gschem
@@ -240,6 +257,7 @@ Gnetlist generates netlists from schematics drawn with gschem
 %{_bindir}/sch2eaglepos.sh
 %{_mandir}/man1/gnetlist.*
 %{_datadir}/gEDA/system-gnetlistrc
+%{_datadir}/gEDA/scheme/gnet*.scm
 %{_datadir}/doc/geda-gaf/man/gnetlist.html
 
 #--------------------------------------------------------------------------
