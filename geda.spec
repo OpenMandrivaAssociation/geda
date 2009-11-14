@@ -1,6 +1,6 @@
 %define libmajor 38
 
-Summary: A project manager
+Summary: GPL Electronic Design Automation Project
 Name: geda
 Epoch: 1
 Version: 1.6.0
@@ -25,12 +25,15 @@ Suggests: geda-docs
 Suggests: geda-examples
 
 %description
-The gEDA project is working on producing a full GPL'd
-suite of Electronic Design Automation tools.
-
-gEDA Suite Project Manager is a start point for everything what 
-you may want to do. It is used to organize your files and easy 
-running tools. It simplifies your job.
+The GPL Electronic Design Automation (gEDA) project has produced and
+continues working on a full GPL'd suite and toolkit of Electronic
+Design Automation tools. These tools are used for electrical circuit
+design, schematic capture, simulation, prototyping, and
+production. Currently, the gEDA project offers a mature suite of free
+software applications for electronics design, including schematic
+capture, attribute management, bill of materials (BOM) generation,
+netlisting into over 20 netlist formats, analog and digital
+simulation, and printed circuit board (PCB) layout.
 
 %files 
 %defattr(-,root,root)
