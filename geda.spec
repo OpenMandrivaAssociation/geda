@@ -7,7 +7,7 @@ Version: 1.6.0
 Release: %{mkrel 1}
 License: GPLv2
 Group: Office
-Url: http://www.geda.seul.org/
+Url: http://www.gpleda.org/
 Source: http://geda.seul.org/release/v1.6/%version/geda-gaf-%version.tar.gz
 Patch0: geda-gaf-1.6.0-fix-str-fmt.patch
 BuildRoot: %{_tmppath}/%{name}-buildroot
