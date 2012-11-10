@@ -1,0 +1,14 @@
+--- gschem/src/gschem.c.str	2009-11-14 05:30:08.000000000 -0500
++++ gschem/src/gschem.c	2009-11-14 05:30:28.000000000 -0500
+@@ -216,9 +216,10 @@
+     GtkWidget* error_diag =
+       gtk_message_dialog_new (NULL, 0, GTK_MESSAGE_ERROR,
+                               GTK_BUTTONS_OK,
++			      "%s",
+                               message);
+     gtk_dialog_run (GTK_DIALOG (error_diag));
+-    g_error (message);
++    g_error ("%s",message);
+   }
+ 
+   /* Allocate w_current */
