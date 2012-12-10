@@ -1,28 +1,31 @@
-%define libmajor 38
+%define libmajor 41
 
-Summary: GPL Electronic Design Automation Project
-Name: geda
-Epoch: 1
-Version: 1.6.2
-Release: %{mkrel 1}
-License: GPLv2
-Group: Office
-Url: http://www.gpleda.org/
-Source: http://geda.seul.org/release/v1.6/%version/geda-gaf-%version.tar.gz
-Patch0: geda-gaf-1.6.0-fix-str-fmt.patch
-BuildRoot: %{_tmppath}/%{name}-buildroot
-BuildRequires: gtk+2-devel
-BuildRequires: shared-mime-info
-BuildRequires: guile-devel
-BuildRequires: libstroke-devel
-Requires: geda-gattrib
-Requires: geda-gschem
-Requires: geda-gnetlist
-Requires: geda-gsymcheck
-Requires: geda-symbols
-Requires: geda-utils
-Suggests: geda-docs
-Suggests: geda-examples
+Summary:	GPL Electronic Design Automation Project
+Name:		geda
+Epoch:		1
+Version:	1.8.0
+Release:	1
+License:	GPLv2
+Group:		Office
+Url:		http://www.gpleda.org/
+Source:		ftp://ftp.geda-project.org/geda-gaf/stable/v1.8/%{version}/geda-gaf-%{version}.tar.gz
+Patch0:		geda-gaf-1.8.0-linkage.patch
+BuildRequires:	shared-mime-info
+BuildRequires:	gettext-devel
+BuildRequires:	pkgconfig(cairo)
+BuildRequires:	pkgconfig(glib-2.0)
+BuildRequires:	pkgconfig(gdk-pixbuf-2.0)
+BuildRequires:	pkgconfig(gtk+-2.0)
+BuildRequires:	pkgconfig(guile-2.0)
+BuildRequires:	libstroke-devel
+Requires:	geda-gattrib
+Requires:	geda-gschem
+Requires:	geda-gnetlist
+Requires:	geda-gsymcheck
+Requires:	geda-symbols
+Requires:	geda-utils
+Suggests:	geda-docs
+Suggests:	geda-examples
 
 %description
 The GPL Electronic Design Automation (gEDA) project has produced and
@@ -35,14 +38,13 @@ capture, attribute management, bill of materials (BOM) generation,
 netlisting into over 20 netlist formats, analog and digital
 simulation, and printed circuit board (PCB) layout.
 
-%files 
-%defattr(-,root,root)
+%files
 
 #--------------------------------------------------------------------------
 %package -n lib%{name}-data
-Summary: Static data from %name
-Group: Sciences/Other
-Conflicts: %{name}-symbols < 1:1.6.0-2
+Summary:	Static data from %{name}
+Group:		Sciences/Other
+Conflicts:	%{name}-symbols < 1:1.6.0-2
 
 %description -n lib%{name}-data
 This packages contains some help files and other
@@ -53,7 +55,6 @@ Electronic Design Automation tools. These tools are used for electrical
 circuit design, simulation, prototyping, and production.
 
 %files -n lib%{name}-data -f lib%{name}%{libmajor}.lang
-%defattr(-,root,root)
 %dir %{_datadir}/gEDA
 %{_datadir}/gEDA/prolog.ps
 %{_datadir}/gEDA/scheme/geda.scm
@@ -64,60 +65,56 @@ circuit design, simulation, prototyping, and production.
 %{_datadir}/mime/packages/*
 
 #--------------------------------------------------------------------------
-%define libname %mklibname %name %libmajor
+%define libname %mklibname %{name} %{libmajor}
 
-%package -n %libname
-Summary: Libraries for the gEDA project
-Group: Sciences/Other
-Requires: lib%{name}-data = %epoch:%version
+%package -n %{libname}
+Summary:	Libraries for the gEDA project
+Group:		Sciences/Other
+Requires:	lib%{name}-data = %{EVRD}
 
-%description -n %libname
-This package contains libgeda%{major} (library needed by gEDA applications).
+%description -n %{libname}
+This package contains libgeda%{libmajor} (library needed by gEDA applications).
 
 The gEDA project is working on producing a full GPL'd suite of
 Electronic Design Automation tools. These tools are used for electrical
 circuit design, simulation, prototyping, and production.
 
-%files -n %libname
-%defattr(-,root,root)
+%files -n %{libname}
 %{_libdir}/*.so.%{libmajor}
 %{_libdir}/*.so.%{libmajor}.*
 
 #--------------------------------------------------------------------------
-%define develname %mklibname -d %name
+%define develname %mklibname -d %{name}
 
-%package -n %develname
-Summary: Development libraries for the gEDA project
-Group: Sciences/Other
-Provides: %name-devel = %epoch:%version-%release
-Requires: %{libname} = %epoch:%version
+%package -n %{develname}
+Summary:	Development libraries for the gEDA project
+Group:		Sciences/Other
+Provides:	%{name}-devel = %{EVRD}
+Requires:	%{libname} = %{EVRD}
 
-%description -n %develname
-This package contains libgeda%{major} development libraries needed
+%description -n %{develname}
+This package contains libgeda%{libmajor} development libraries needed
 by gEDA applications) and the necessary header files for development.
 
 The gEDA project is working on producing a full GPL'd suite of
 Electronic Design Automation tools. These tools are used for electrical
 circuit design, simulation, prototyping, and production.
 
-%files -n %develname
-%defattr(-,root,root)
+%files -n %{develname}
 %{_libdir}/libgeda.so
-%{_libdir}/libgeda.la
 %{_libdir}/pkgconfig/*.pc
 %{_includedir}/libgeda
 
 #--------------------------------------------------------------------------
 %package symbols
-Summary: Electronic symbols for gEDA
-Group: Sciences/Other
+Summary:	Electronic symbols for gEDA
+Group:		Sciences/Other
 
 %description symbols
 This package contains a bunch of symbols of electronic devices
 used by gschem, the gEDA project schematic editor.
 
 %files symbols
-%defattr(-,root,root)
 %dir %{_datadir}/gEDA/sym
 %dir %{_datadir}/gEDA/sym/*/
 %{_datadir}/gEDA/sym/*/*
@@ -126,9 +123,9 @@ used by gschem, the gEDA project schematic editor.
 
 #--------------------------------------------------------------------------
 %package gattrib
-Summary: Electronics schematics editor
-Group: Sciences/Other
-Requires: %{name}-symbols = %epoch:%version-%release
+Summary:	Electronics schematics editor
+Group:		Sciences/Other
+Requires:	%{name}-symbols = %{EVRD}
 
 %description gattrib
 Gattrib is gEDA's attribute editor.  It reads a set of gschem .sch
@@ -142,27 +139,26 @@ attribute editing is implemented; pin and net attributes are displayed
 only.)
 
 %files gattrib -f %{name}-gattrib.lang
-%defattr(-,root,root)
-%_bindir/gattrib
-%_datadir/gEDA/system-gattribrc
-%_datadir/gEDA/gattrib-menus.xml
-%_datadir/applications/geda-gattrib.desktop
-%_iconsdir/hicolor/*/apps/geda-gattrib.*
+%{_bindir}/gattrib
+%{_datadir}/gEDA/system-gattribrc
+%{_datadir}/gEDA/gattrib-menus.xml
+%{_datadir}/applications/geda-gattrib.desktop
+%{_iconsdir}/hicolor/*/apps/geda-gattrib.*
+%{_datadir}/doc/geda-gaf/man/gattrib.html
+%{_mandir}/man1/gattrib.1.xz
 
 #--------------------------------------------------------------------------
 %package gschem
-Summary: Electronics schematics editor
-Group: Sciences/Other
-Requires: %{name}-symbols = %epoch:%version-%release
-Conflicts: %{name}-symbols < 1:1.6.0-2
+Summary:	Electronics schematics editor
+Group:		Sciences/Other
+Requires:	%{name}-symbols = %{EVRD}
+Conflicts:	%{name}-symbols < 1:1.6.0-2
 
 %description gschem
 Gschem is an electronics schematic editor. It is part of the gEDA project.
 
 %files gschem -f %{name}-gschem.lang
-%defattr(-,root,root)
 %{_bindir}/gschem
-%{_bindir}/gschemdoc
 %{_mandir}/man1/gschem.*
 %{_datadir}/gEDA/bitmap/gschem*
 %{_datadir}/gEDA/system-gschemrc
@@ -174,25 +170,41 @@ Gschem is an electronics schematic editor. It is part of the gEDA project.
 %{_datadir}/gEDA/scheme/gschem.scm
 %{_datadir}/gEDA/scheme/image.scm
 %{_datadir}/gEDA/scheme/list-keys.scm
+%{_datadir}/gEDA/scheme/partslist-common.scm
 %{_datadir}/gEDA/scheme/pcb.scm
 %{_datadir}/gEDA/scheme/print.scm
 %{_datadir}/gEDA/scheme/print-NB-attribs.scm
+%{_datadir}/gEDA/scheme/geda/attrib.scm
+%{_datadir}/gEDA/scheme/geda/core/gettext.scm
+%{_datadir}/gEDA/scheme/geda/deprecated.scm
+%{_datadir}/gEDA/scheme/geda/object.scm
+%{_datadir}/gEDA/scheme/geda/os.scm
+%{_datadir}/gEDA/scheme/geda/page.scm
+%{_datadir}/gEDA/scheme/gschem/attrib.scm
+%{_datadir}/gEDA/scheme/gschem/core/gettext.scm
+%{_datadir}/gEDA/scheme/gschem/deprecated.scm
+%{_datadir}/gEDA/scheme/gschem/gschemdoc.scm
+%{_datadir}/gEDA/scheme/gschem/hook.scm
+%{_datadir}/gEDA/scheme/gschem/keymap.scm
+%{_datadir}/gEDA/scheme/gschem/selection.scm
+%{_datadir}/gEDA/scheme/gschem/util.scm
+%{_datadir}/gEDA/scheme/gschem/window.scm
 %{_datadir}/doc/geda-gaf/man/gschem.html
 %{_datadir}/applications/geda-gschem.desktop
 %{_iconsdir}/hicolor/*/apps/geda-gschem.*
+%{_infodir}/geda-scheme.info.*
 
 #--------------------------------------------------------------------------
 %package gsymcheck
-Summary: Electronics schematics editor
-Group: Sciences/Other
-Requires: %{name}-symbols = %epoch:%version-%release
+Summary:	Electronics schematics editor
+Group:		Sciences/Other
+Requires:	%{name}-symbols = %{EVRD}
 
 %description gsymcheck
 Gsymcheck is a utility to check symbols for gschem. It is part
 of the gEDA project.
 
 %files gsymcheck
-%defattr(-,root,root)
 %{_bindir}/gsymcheck
 %{_datadir}/gEDA/system-gsymcheckrc
 %{_datadir}/doc/geda-gaf/man/gsymcheck.html
@@ -200,23 +212,20 @@ of the gEDA project.
 
 #--------------------------------------------------------------------------
 %package utils
-Summary: Netlister for the gEDA project
-Group: Sciences/Other
-Requires: %{name}-symbols = %epoch:%version-%release
+Summary:	Netlister for the gEDA project
+Group:		Sciences/Other
+Requires:	%{name}-symbols = %{EVRD}
 
 %description utils
 Several utilities for the gEDA project.
 
 %files utils
-%defattr(-,root,root)
 %{_bindir}/gmk_sym
 %{_bindir}/smash_megafile
 %{_bindir}/convert_sym
 %{_bindir}/sarlacc_schem
 %{_bindir}/sarlacc_sym
 %{_bindir}/gschlas
-%{_bindir}/gschupdate
-%{_bindir}/gsymupdate
 %{_bindir}/olib
 %{_bindir}/refdes_renum
 %{_bindir}/gsch2pcb
@@ -224,22 +233,54 @@ Several utilities for the gEDA project.
 %{_bindir}/tragesym
 %{_bindir}/garchive
 %{_bindir}/grenum
-%{_bindir}/gsymfix.pl
-%{_bindir}/gnet_hier_verilog.sh
+%{_bindir}/gsymfix
+%{_bindir}/schdiff
 %{_bindir}/pcb_backannotate
 %{_bindir}/gxyrs
 %{_datadir}/gEDA/perl/lib/gxyrs.pm
 %{_datadir}/gEDA/system-gschlasrc
 %{_datadir}/doc/geda-gaf/man/grenum.html
+%{_datadir}/doc/geda-gaf/man/convert_sym.html
+%{_datadir}/doc/geda-gaf/man/garchive.html
+%{_datadir}/doc/geda-gaf/man/gmk_sym.html
+%{_datadir}/doc/geda-gaf/man/gsch2pcb.html
+%{_datadir}/doc/geda-gaf/man/gschlas.html
+%{_datadir}/doc/geda-gaf/man/gsymfix.html
+%{_datadir}/doc/geda-gaf/man/gxyrs.html
+%{_datadir}/doc/geda-gaf/man/olib.html
+%{_datadir}/doc/geda-gaf/man/pads_backannotate.html
+%{_datadir}/doc/geda-gaf/man/pcb_backannotate.html
+%{_datadir}/doc/geda-gaf/man/refdes_renum.html
+%{_datadir}/doc/geda-gaf/man/sarlacc_schem.html
+%{_datadir}/doc/geda-gaf/man/sarlacc_sym.html
+%{_datadir}/doc/geda-gaf/man/schdiff.html
+%{_datadir}/doc/geda-gaf/man/smash_megafile.html
+%{_datadir}/doc/geda-gaf/man/tragesym.html
 %{_datadir}/doc/geda-gaf/readmes
 %{_mandir}/man1/grenum.1*
+%{_mandir}/man1/convert_sym.1*
+%{_mandir}/man1/garchive.1*
+%{_mandir}/man1/gmk_sym.1*
+%{_mandir}/man1/gsch2pcb.1*
+%{_mandir}/man1/gschlas.1*
+%{_mandir}/man1/gsymfix.1*
+%{_mandir}/man1/gxyrs.1*
+%{_mandir}/man1/olib.1*
+%{_mandir}/man1/pads_backannotate.1*
+%{_mandir}/man1/pcb_backannotate.1*
+%{_mandir}/man1/refdes_renum.1*
+%{_mandir}/man1/sarlacc_schem.1*
+%{_mandir}/man1/sarlacc_sym.1*
+%{_mandir}/man1/schdiff.1*
+%{_mandir}/man1/smash_megafile.1*
+%{_mandir}/man1/tragesym.1*
 
 #--------------------------------------------------------------------------
 %package gnetlist
-Summary: Netlister for the gEDA project
-Group: Sciences/Other
-Requires: %{name}-symbols = %epoch:%version-%release
-Conflicts: %{name}-symbols < 1:1.6.0-2
+Summary:	Netlister for the gEDA project
+Group:		Sciences/Other
+Requires:	%{name}-symbols = %{EVRD}
+Conflicts:	%{name}-symbols < 1:1.6.0-2
 
 %description gnetlist
 Gnetlist generates netlists from schematics drawn with gschem
@@ -249,39 +290,38 @@ Gnetlist generates netlists from schematics drawn with gschem
 - tango
 
 %files gnetlist
-%defattr(-,root,root)
 %dir %{_datadir}/gEDA
 %{_bindir}/gnetlist
-%{_bindir}/mk_verilog_syms
 %{_bindir}/sw2asc
-%{_bindir}/sch2eaglepos.sh
 %{_mandir}/man1/gnetlist.*
 %{_datadir}/gEDA/system-gnetlistrc
 %{_datadir}/gEDA/scheme/gnet*.scm
+%dir %{_datadir}/gEDA/scheme/gnetlist
+%{_datadir}/gEDA/scheme/gnetlist/backend-getopt.scm
 %{_datadir}/doc/geda-gaf/man/gnetlist.html
+%{_datadir}/doc/geda-gaf/man/sw2asc.html
+%{_mandir}/man1/sw2asc.1*
 
 #--------------------------------------------------------------------------
 %package examples
-Summary: Examples for the gEDA project
-Group: Sciences/Other
+Summary:	Examples for the gEDA project
+Group:		Sciences/Other
 
 %description examples
 This package provide example for the gEDA project.
 
 %files examples
-%defattr(-,root,root)
 %{_datadir}/doc/geda-gaf/examples
 
 #--------------------------------------------------------------------------
 %package docs
-Summary: Doc for the gEDA project
-Group: Sciences/Other
+Summary:	Doc for the gEDA project
+Group:		Sciences/Other
 
 %description docs
 This package provides documentation for the gEDA project.
 
 %files docs
-%defattr(-,root,root)
 %{_datadir}/doc/geda-gaf/wiki
 %{_datadir}/doc/geda-gaf/gedadocs.html
 
@@ -289,19 +329,17 @@ This package provides documentation for the gEDA project.
 
 %prep
 %setup -qn geda-gaf-%{version}
-%patch0 -p0
+%patch0 -p1
 
 %build
+autoreconf -fi
 %configure2_5x --disable-update-xdg-database --disable-static
 %make
 
 %install
-rm -fr %buildroot
 %makeinstall_std
 
 %find_lang lib%{name}%{libmajor}
 %find_lang %{name}-gattrib
 %find_lang %{name}-gschem
 
-%clean
-rm -fr %buildroot

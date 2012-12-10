@@ -1,0 +1,12 @@
+diff -urN geda-gaf-1.8.0/configure.ac geda-gaf-1.8.0-patched/configure.ac
+--- geda-gaf-1.8.0/configure.ac	2012-11-19 04:16:46.000000000 +1100
++++ geda-gaf-1.8.0-patched/configure.ac	2012-11-20 17:26:32.034100258 +1100
+@@ -72,7 +72,7 @@
+ 
+ AX_CHECK_GUILE([1.8.0])
+ 
+-PKG_CHECK_MODULES(GLIB, [glib-2.0 >= 2.20.0], ,
++PKG_CHECK_MODULES(GLIB, [glib-2.0 >= 2.20.0 gio-2.0], ,
+   AC_MSG_ERROR([GLib 2.20.0 or later is required.]))
+ 
+ PKG_CHECK_MODULES(GTK, [gtk+-2.0 >= 2.16.0], ,
