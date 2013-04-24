@@ -1,0 +1,26 @@
+-diff -p -up ./libgeda/src/Makefile.in.orig ./libgeda/src/Makefile.in
+-- ./libgeda/src/Makefile.in.orig	2012-11-23 22:34:13.000000000 +0100
++++ ./libgeda/src/Makefile.in	2012-11-24 16:49:49.784968487 +0100
+@@ -122,7 +122,7 @@ am__uninstall_files_from_dir = { \
+   }
+ am__installdirs = "$(DESTDIR)$(libdir)"
+ LTLIBRARIES = $(lib_LTLIBRARIES)
+-libgeda_la_LIBADD =
++libgeda_la_LIBADD = -lm -lgio-2.0
+ am__objects_1 = libgeda_la-scheme_init.lo libgeda_la-scheme_smob.lo \
+ 	libgeda_la-scheme_toplevel.lo libgeda_la-scheme_object.lo \
+ 	libgeda_la-scheme_complex.lo libgeda_la-scheme_os.lo \
+diff -p -up ./gschem/src/Makefile.in.orig ./gschem/src/Makefile.in
+--- ./gschem/src/Makefile.in.orig	2012-11-24 17:27:26.075181459 +0100
++++ ./gschem/src/Makefile.in	2012-11-23 22:34:11.000000000 +0100
+@@ -461,7 +461,9 @@ gschem_CFLAGS = $(GCC_CFLAGS) $(LIBSTROK
+ gschem_LDFLAGS = $(LIBSTROKE_LDFLAGS) $(GLIB_LIBS) $(GTK_LIBS) \
+ 	$(GTHREAD_LIBS) $(GUILE_LIBS) $(MINGW_GUI_LDFLAGS)
+ 
+-gschem_LDADD = $(top_builddir)/libgeda/src/libgeda.la @LIBINTL@
++gschem_LDADD = $(top_builddir)/libgeda/src/libgeda.la \
++	@LIBINTL@ \
++	-lm -lgio-2.0
+ 
+ # This is used to generate boilerplate for defining Scheme functions
+ # in C.

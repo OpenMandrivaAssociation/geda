@@ -1,0 +1,18 @@
+diff -p -up ./gschem/data/geda-gschem.desktop.orig ./gschem/data/geda-gschem.desktop
+--- ./gschem/data/geda-gschem.desktop.orig	2012-11-13 17:10:13.000000000 +0100
++++ ./gschem/data/geda-gschem.desktop	2012-12-01 09:49:22.809110307 +0100
+@@ -31,4 +31,4 @@ Type=Application
+ Exec=gschem %F
+ Icon=geda-gschem
+ MimeType=application/x-geda-schematic;application/x-geda-symbol;
+-Categories=Engineering;Electronics;
++Categories=Science;Engineering;Electronics;
+diff -p -up ./gattrib/data/geda-gattrib.desktop.orig ./gattrib/data/geda-gattrib.desktop
+--- ./gattrib/data/geda-gattrib.desktop.orig	2012-11-23 17:05:33.000000000 +0100
++++ ./gattrib/data/geda-gattrib.desktop	2012-12-01 09:50:39.239072684 +0100
+@@ -58,4 +58,4 @@ Type=Application
+ Exec=gattrib %F
+ Icon=geda-gattrib
+ #MimeType=application/x-geda-schematic;application/x-geda-symbol;
+-Categories=Engineering;Electronics;
++Categories=Science;Engineering;Electronics;
