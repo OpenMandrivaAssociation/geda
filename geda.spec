@@ -1,15 +1,16 @@
-%define libmajor 41
+%define libmajor 42
 
 Summary:	GPL Electronic Design Automation Project
 Name:		geda
 Epoch:		1
-Version:	1.8.0
-Release:	1
+Version:	1.8.1
+Release:	3
 License:	GPLv2
 Group:		Office
 Url:		http://www.gpleda.org/
 Source:		ftp://ftp.geda-project.org/geda-gaf/stable/v1.8/%{version}/geda-gaf-%{version}.tar.gz
-Patch0:		geda-gaf-1.8.0-linkage.patch
+Patch0:		geda-gaf-1.8.1-linkage.patch
+Patch1:		geda-gaf-1.8.1-desktop.patch
 BuildRequires:	shared-mime-info
 BuildRequires:	gettext-devel
 BuildRequires:	pkgconfig(cairo)
@@ -18,6 +19,7 @@ BuildRequires:	pkgconfig(gdk-pixbuf-2.0)
 BuildRequires:	pkgconfig(gtk+-2.0)
 BuildRequires:	pkgconfig(guile-2.0)
 BuildRequires:	libstroke-devel
+BuildRequires:	guile
 Requires:	geda-gattrib
 Requires:	geda-gschem
 Requires:	geda-gnetlist
@@ -35,7 +37,7 @@ design, schematic capture, simulation, prototyping, and
 production. Currently, the gEDA project offers a mature suite of free
 software applications for electronics design, including schematic
 capture, attribute management, bill of materials (BOM) generation,
-netlisting into over 20 netlist formats, analog and digital
+net listing into over 20 net list formats, analog and digital
 simulation, and printed circuit board (PCB) layout.
 
 %files
@@ -48,7 +50,7 @@ Conflicts:	%{name}-symbols < 1:1.6.0-2
 
 %description -n lib%{name}-data
 This packages contains some help files and other
-static stuf.
+static stuff.
 
 The gEDA project is working on producing a full GPL'd suite of
 Electronic Design Automation tools. These tools are used for electrical
@@ -212,7 +214,7 @@ of the gEDA project.
 
 #--------------------------------------------------------------------------
 %package utils
-Summary:	Netlister for the gEDA project
+Summary:	Net lister for the gEDA project
 Group:		Sciences/Other
 Requires:	%{name}-symbols = %{EVRD}
 
@@ -277,15 +279,15 @@ Several utilities for the gEDA project.
 
 #--------------------------------------------------------------------------
 %package gnetlist
-Summary:	Netlister for the gEDA project
+Summary:	Net lister for the gEDA project
 Group:		Sciences/Other
 Requires:	%{name}-symbols = %{EVRD}
 Conflicts:	%{name}-symbols < 1:1.6.0-2
 
 %description gnetlist
-Gnetlist generates netlists from schematics drawn with gschem
+Gnetlist generates net lists from schematics drawn with gschem
 (the gEDA schematic editor). Possible output formats are:
-- spice netlists
+- spice net lists
 - verilog
 - tango
 
@@ -329,11 +331,13 @@ This package provides documentation for the gEDA project.
 
 %prep
 %setup -qn geda-gaf-%{version}
-%patch0 -p1
+%apply_patches
 
 %build
-autoreconf -fi
-%configure2_5x --disable-update-xdg-database --disable-static
+%configure2_5x \
+	--disable-update-xdg-database \
+	--disable-static \
+	--disable-rpath
 %make
 
 %install
@@ -342,4 +346,11 @@ autoreconf -fi
 %find_lang lib%{name}%{libmajor}
 %find_lang %{name}-gattrib
 %find_lang %{name}-gschem
+#fix linting
+sed -i 's/\r//' %{buildroot}%{_datadir}/doc/geda-gaf/examples/RF_Amp/{Q2,MSA-2643,Q1}.cir
+sed -i 's/\r//' %{buildroot}%{_datadir}/doc/geda-gaf/examples/TwoStageAmp/spice.netlist
+
+
+
+
 
