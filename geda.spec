@@ -1,10 +1,11 @@
+%define __noautoreq '.*/bin/awk|.*/bin/gawk'
 %define libmajor 42
 
 Summary:	GPL Electronic Design Automation Project
 Name:		geda
 Epoch:		1
 Version:	1.8.1
-Release:	3
+Release:	4
 License:	GPLv2
 Group:		Office
 Url:		http://www.gpleda.org/
