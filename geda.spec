@@ -5,7 +5,7 @@ Summary:	GPL Electronic Design Automation Project
 Name:		geda
 Epoch:		1
 Version:	1.8.1
-Release:	4
+Release:	5
 License:	GPLv2
 Group:		Office
 Url:		http://www.gpleda.org/
