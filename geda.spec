@@ -332,7 +332,7 @@ This package provides documentation for the gEDA project.
 
 %prep
 %setup -qn geda-gaf-%{version}
-%apply_patches
+%autopatch -p1
 
 %build
 %configure2_5x \
