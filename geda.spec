@@ -8,7 +8,7 @@ Version:	1.8.1
 Release:	5
 License:	GPLv2
 Group:		Office
-Url:		http://www.gpleda.org/
+Url:		https://www.gpleda.org/
 Source:		ftp://ftp.geda-project.org/geda-gaf/stable/v1.8/%{version}/geda-gaf-%{version}.tar.gz
 Patch0:		geda-gaf-1.8.1-linkage.patch
 Patch1:		geda-gaf-1.8.1-desktop.patch
