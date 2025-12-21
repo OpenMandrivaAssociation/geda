@@ -12,6 +12,11 @@ Url:		https://www.gpleda.org/
 Source:		ftp://ftp.geda-project.org/geda-gaf/stable/v1.8/%{version}/geda-gaf-%{version}.tar.gz
 Patch0:		geda-gaf-1.8.1-linkage.patch
 Patch1:		geda-gaf-1.8.1-desktop.patch
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	shared-mime-info
 BuildRequires:	gettext-devel
 BuildRequires:	pkgconfig(cairo)
